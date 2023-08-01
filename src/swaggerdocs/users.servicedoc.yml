@@ -1,0 +1,130 @@
+tags:
+    name: User Onboarding Section
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        username:
+          type: string
+          example: Harshit
+        first_name:
+          type: string
+          example: Harshit
+        last_name:
+          type: string
+          example: Harshit
+        email:
+          type: string
+          example: abc@gmail.com
+        password:
+          type: string
+          example: Harshit@123
+        mobile_no:
+          type: number
+          example: 7858492492
+        gender:
+          type: enum
+          example: Male || Female
+        dob:
+          type: date  
+          example: 2002/09/09  
+        starus:
+          type: boolean
+          example: true || false
+        profilePic:
+          type: blob
+      required:  
+          email
+
+paths:
+  /signUp:
+    post:
+      summary: This API is used to Register new user in Advertisement System.
+      tags: [User Onboarding Section]
+      description: User can register by filling the entries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '201':
+          description: Created.
+        '406':
+          description: Value not accepted.
+        '500':
+          description: Inernal server error.          
+  /login:
+    post:
+      summary: This API is used to LoggedIn in Advertisement System.
+      tags: [User Onboarding Section]
+      description: User can login by filling the entries.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: Authorized.
+        '401':
+          description: Unauthorized Response.
+        '500':
+          description: Inernal server error.
+  /logout:
+    post:
+      summary: This API is used to LoggedOut from Advertisement System.
+      tags: [User Onboarding Section]
+      description: User can logout by hitting this api.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: Authorized.
+        '401':
+          description: Unauthorized Response.
+        '500':
+          description: Inernal server error.
+  /forgot_password:
+    post:
+      summary: This API is used to Forgot Password in Advertisement System.
+      tags: [User Onboarding Section]
+      description: User can forgot password by giving the email.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: Authorized.
+        '401':
+          description: Unauthorized Response.
+        '500':
+          description: Inernal server error.
+  /reset_password:
+    post:
+      summary: This API is used to Reset Password for Advertisement System.
+      tags: [User Onboarding Section]
+      description: User can Reset Password by giving email, OTP got on email and NewPassword.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '200':
+          description: Authorized.
+        '401':
+          description: Unauthorized Response.
+        '500':
+          description: Inernal server error.
