@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "harshit@123",
+    "database": "advertisement_mngmnt_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "harshit@123",
+    "database": "advertisement_mngmnt_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "harshit@123",
+    "database": "advertisement_mngmnt_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
