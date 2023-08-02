@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { Auth } from "../middleware/Auth.user";
 import dotenv from "dotenv";
 import { Sessions } from "./controller.session";
-import { Redis } from "../middleware/redis.session";
+import { RedisSession } from "../middleware/redis.session";
 import nodemailer from "nodemailer";
 import { Validate } from "../middleware/validate.user";
 
@@ -119,7 +119,7 @@ export class UserModel {
             if (isUser) {
                 const user = isUser.id;
                 if (Auth.update_session(user)) {
-                    await Redis.logout_session_redis(isUser);
+                    await RedisSession.logout_session_redis(isUser);
                     res.status(200).json({ message: "User Logout Successfully" })
                 }
                 else {
@@ -149,7 +149,7 @@ export class UserModel {
             }
 
             let OTP = Math.floor(1000 + Math.random() * 9000);
-            Redis.save_otp(email, OTP);
+            RedisSession.save_otp(email, OTP);
 
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -197,7 +197,7 @@ export class UserModel {
                 return res.status(400).json({ message: 'Invalid User' });
             }
 
-            const userOTP = await Redis.get_otp(email);
+            const userOTP = await RedisSession.get_otp(email);
             console.log(userOTP);
             if (!userOTP || userOTP !== otp) {
                 return res.status(401).json({ error: 'Invalid OTP' });

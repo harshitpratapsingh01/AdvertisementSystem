@@ -1,13 +1,18 @@
-import { createClient } from "redis";
+// import { createClient } from "redis";
+import Redis from "ioredis";
+// const client = createClient();
+// client.connect();
 
-const client = createClient();
-client.connect();
+const client = new Redis({
+       port: 6379,
+       host: '192.168.2.181',
+});
 
-export class Redis {
+export class RedisSession {
     static async maintain_session_redis(isUser) {
         client.on('error', err => console.log('Redis client error', err));
         try {
-            await client.SET(isUser.username, JSON.stringify({
+            await client.set(isUser.username, JSON.stringify({
                 user_id: isUser.id,
                 status: true
             }));
@@ -22,7 +27,7 @@ export class Redis {
     static async logout_session_redis(isUser) {
         client.on('error', err => console.log('Redis client error', err));
         try {
-            await client.SET(isUser.username, JSON.stringify({
+            await client.set(isUser.username, JSON.stringify({
                 user_id: isUser.id,
                 status: false
             }));
@@ -48,7 +53,7 @@ export class Redis {
     static async save_otp(email,OTP){
         client.on('error', err => console.log('Redis client error', err));
         try{
-            await client.setEx(email, 300, JSON.stringify({
+            await client.setex(email, 300, JSON.stringify({
                 otp : OTP
             }));
             console.log("otp stored successfully");

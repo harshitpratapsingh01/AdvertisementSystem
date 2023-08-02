@@ -10,7 +10,7 @@ const Session = sequelize.define('session', {
 });
 
 (async function () {
-    await Session.sync({ alert: true });
+    await Session.sync();
 })();
 
 export default Session;

@@ -12,7 +12,6 @@ const port = process.env.PORT;
 
 Connection.dbconnection();
 
-
 const options = {
     definition: {
         openapi: '3.0.0',
@@ -29,11 +28,14 @@ const options = {
     apis: ['./src/swaggerdocs/*'],
 };
 
+
+app.use('/', userRouter);
+app.use('/user', userRouter);
+app.use('/operation', operationsRouter);
+
 const swaggerDocument = swaggerJSDoc(options);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/user', userRouter);
-app.use('/operation', operationsRouter);
 
 app.listen(port, () => {
     console.log(`Server is lintening at http://localhost:${port}`);
