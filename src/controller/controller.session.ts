@@ -1,6 +1,6 @@
 import Session from "../models/schema.session";
 import { Auth } from "../middleware/Auth.user";
-import { Redis } from "../middleware/redis.session";
+import { RedisSession } from "../middleware/redis.session";
 
 export class Sessions {
     static async maintain_session(isUser) {
@@ -26,7 +26,7 @@ export class Sessions {
                     console.log("Session is already Active");
                 }
             }
-            await Redis.maintain_session_redis(isUser);
+            await RedisSession.maintain_session_redis(isUser);
         }
         catch (err) {
             console.log("Server Error")

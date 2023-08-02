@@ -14,7 +14,7 @@ const sequelize = new Sequelize({
 
 class Connection {
     static async dbconnection() {
-        console.log(sequelize)
+        // console.log(sequelize)
         try {
             await sequelize.authenticate();
             console.log('Connection has been established successfully.');

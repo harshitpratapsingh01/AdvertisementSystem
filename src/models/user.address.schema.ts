@@ -66,7 +66,7 @@ const Address = sequelize.define('address', {
 });
 
 (async function () {
-    await Address.sync({ alter: true });
+    await Address.sync();
 })();
 
 export {Address}

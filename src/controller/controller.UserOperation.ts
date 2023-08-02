@@ -2,7 +2,7 @@ import { User } from "../models/schema.users";
 import { Auth } from "../middleware/Auth.user";
 import { createClient } from "redis";
 const fs = require('fs');
-import { Redis } from "../middleware/redis.session";
+import { RedisSession } from "../middleware/redis.session";
 
 const client = createClient();
 client.connect();
@@ -16,7 +16,7 @@ export class UserOperations {
             const user = await Auth.verify_token(req.headers.authorization);
             const isUser = await User.findOne({ where: { email: user.email }, attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'status'] } });
             if (isUser) {
-                const status = await Redis.isActiv(isUser);
+                const status = await RedisSession.isActiv(isUser);
                 if (status) {
                     res.status(200).json({ message: "Success", isUser });
                 }
